@@ -1,0 +1,102 @@
+{
+  "info": {
+    "name": "Expense Tracker API",
+    "description": "CRUD + search/filter/summary endpoints for the Expense Tracker Django REST API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://127.0.0.1:8000/api" },
+    { "key": "expense_id", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "List Expenses",
+      "request": { "method": "GET", "url": "{{base_url}}/expenses/" }
+    },
+    {
+      "name": "Create Expense",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/expenses/",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Grocery Shopping\",\n  \"amount\": \"1250.50\",\n  \"category\": \"Food\",\n  \"date\": \"2026-09-10\",\n  \"payment_method\": \"UPI\",\n  \"description\": \"Weekly groceries\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Retrieve Expense",
+      "request": { "method": "GET", "url": "{{base_url}}/expenses/{{expense_id}}/" }
+    },
+    {
+      "name": "Update Expense (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/expenses/{{expense_id}}/",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Grocery Shopping - Updated\",\n  \"amount\": \"1400.00\",\n  \"category\": \"Food\",\n  \"date\": \"2026-09-10\",\n  \"payment_method\": \"Credit Card\",\n  \"description\": \"Weekly groceries plus snacks\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Partial Update Expense (PATCH)",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/expenses/{{expense_id}}/",
+        "body": { "mode": "raw", "raw": "{\n  \"amount\": \"1500.00\"\n}" }
+      }
+    },
+    {
+      "name": "Delete Expense",
+      "request": { "method": "DELETE", "url": "{{base_url}}/expenses/{{expense_id}}/" }
+    },
+    {
+      "name": "Search Expenses",
+      "request": { "method": "GET", "url": "{{base_url}}/expenses/?search=grocery" }
+    },
+    {
+      "name": "Filter by Category",
+      "request": { "method": "GET", "url": "{{base_url}}/expenses/?category=Food" }
+    },
+    {
+      "name": "Filter by Date Range",
+      "request": { "method": "GET", "url": "{{base_url}}/expenses/?date_from=2026-09-01&date_to=2026-09-30" }
+    },
+    {
+      "name": "Order by Amount Descending",
+      "request": { "method": "GET", "url": "{{base_url}}/expenses/?ordering=-amount" }
+    },
+    {
+      "name": "Expense Summary / Statistics",
+      "request": { "method": "GET", "url": "{{base_url}}/expenses/summary/" }
+    },
+    {
+      "name": "List Categories",
+      "request": { "method": "GET", "url": "{{base_url}}/expenses/categories/" }
+    },
+    {
+      "name": "List Payment Methods",
+      "request": { "method": "GET", "url": "{{base_url}}/expenses/payment_methods/" }
+    },
+    {
+      "name": "Invalid: Create with negative amount",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/expenses/",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Bad Expense\",\n  \"amount\": \"-50\",\n  \"category\": \"Other\",\n  \"date\": \"2026-09-10\",\n  \"payment_method\": \"Cash\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Invalid: Retrieve non-existent ID",
+      "request": { "method": "GET", "url": "{{base_url}}/expenses/999999/" }
+    }
+  ]
+}
