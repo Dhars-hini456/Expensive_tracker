@@ -298,3 +298,4 @@ public class ExpenseTrackerCLI {
         return expenses.stream().filter(e -> e.getId().equals(id)).findFirst().orElse(null);
     }
 }
+
