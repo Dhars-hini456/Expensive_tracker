@@ -113,10 +113,10 @@ REST_FRAMEWORK = {
     ],
 }
 
-# CORS configuration - allow the React dev server to talk to this API
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
+    'https://expensive-tracker-1-p2bb.onrender.com',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
